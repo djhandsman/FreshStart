@@ -20,14 +20,19 @@ function navigateTo(view) {
     } else if (view === 'playing') {
         playingView.classList.remove('hidden');
     }
+
+    if (view !== 'playing') {
+        clearInterval(countdownInterval); // Stop countdowns on exit
+    }
 }
 
 // References to the task sheet
 const taskSheet = document.getElementById('task-sheet');
+let currentRoutineTasks = []; // Array to store tasks for the current routine
+let countdownInterval; // Store the interval globally for clearing
 
 // Show the task sheet when the Add Task button is clicked
 document.getElementById('add-task-btn').addEventListener('click', () => {
-    console.log('Add Task button clicked'); // Log to confirm event is triggered
     taskSheet.classList.remove('hidden');
     taskSheet.classList.add('show');
 });
@@ -62,32 +67,31 @@ class Routine {
 }
 
 class Task {
-    constructor(name, emoji, color, duration) {
-        this.name = name; // Name of the task
-        this.emoji = emoji; // Emoji representing the task
-        this.color = color; // Color of the task
-        this.duration = duration; // Duration in seconds
+    constructor(name, emoji, color, minutes, seconds) {
+        this.name = name;
+        this.emoji = emoji;
+        this.color = color;
+        this.minutes = minutes;
+        this.seconds = seconds;
     }
 }
 
 // Adding functionality for "Add" button in task sheet
 document.getElementById('add-task-to-list').addEventListener('click', () => {
-    // Get user input from the task sheet
     const taskName = document.getElementById('task-name').value.trim();
     const emoji = document.getElementById('emoji-selector').value;
     const color = document.getElementById('color-selector').value;
-    const duration = document.getElementById('duration-selector').value.trim();
+    const minutes = parseInt(document.getElementById('minutes-selector').value.trim(), 10) || 0;
+    const seconds = parseInt(document.getElementById('seconds-selector').value.trim(), 10) || 0;
 
-    // Validate inputs
-    if (!taskName || !duration) {
-        alert('Please provide a task name and duration.');
+    if (!taskName || (minutes === 0 && seconds === 0) || isNaN(minutes) || isNaN(seconds)) {
+        alert('Please provide a task name and a valid duration.');
         return;
     }
 
-    // Create a new Task object
-    const newTask = new Task(taskName, emoji, color, duration);
+    const newTask = new Task(taskName, emoji, color, minutes, seconds);
+    currentRoutineTasks.push(newTask);
 
-    // Add a visual representation of the task to the task container
     const tasksContainer = document.getElementById('tasks-container');
     const taskRow = document.createElement('div');
     taskRow.classList.add('task-row');
@@ -99,69 +103,49 @@ document.getElementById('add-task-to-list').addEventListener('click', () => {
         </div>
         <div style="display: flex; align-items: center; gap: 10px;">
             <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
-            <span>${formatDuration(newTask.duration)}</span>
+            <span>${newTask.minutes}m ${newTask.seconds}s</span>
             <button class="delete-task-btn">X</button>
         </div>
     `;
 
-    // Add delete functionality to the task row
     taskRow.querySelector('.delete-task-btn').addEventListener('click', () => {
+        currentRoutineTasks = currentRoutineTasks.filter(task => task !== newTask);
         taskRow.remove();
     });
 
-    // Append the task row to the tasks container
     tasksContainer.appendChild(taskRow);
 
-    // Clear task sheet fields
     document.getElementById('task-name').value = '';
+    document.getElementById('minutes-selector').value = '';
+    document.getElementById('seconds-selector').value = '';
     document.getElementById('color-selector').value = '#e0e0e0';
-    document.getElementById('duration-selector').value = '';
 
-    // Hide the task sheet
     hideTaskSheet();
 });
 
-// Function to format duration as "Xh Ym"
-function formatDuration(duration) {
-    const [hours, minutes, seconds] = duration.split(':').map(Number);
-    let formattedDuration = '';
-    if (hours > 0) formattedDuration += `${hours}h `;
-    if (minutes > 0) formattedDuration += `${minutes}m`;
-    return formattedDuration.trim();
+// Format duration as "Xm Ys"
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}m ${secs}s`;
 }
 
-// Functionality for creating a new routine remains untouched
 document.getElementById('create-routine-btn').addEventListener('click', () => {
     const routineName = document.getElementById('routine-name').value.trim();
-    const tasksContainer = document.getElementById('tasks-container');
-    const taskRows = tasksContainer.querySelectorAll('.task-row');
 
     if (!routineName) {
         alert('Please enter a routine name.');
         return;
     }
 
-    const tasks = [];
-    taskRows.forEach((row) => {
-        const name = row.querySelector('.task-name-input')?.value.trim();
-        const emoji = row.querySelector('.task-emoji-input')?.value;
-        const color = row.querySelector('.task-color-input')?.value;
-        const duration = row.querySelector('.task-duration-input')?.value.trim();
-
-        if (name && duration) {
-            tasks.push(new Task(name, emoji, color, duration));
-        }
-    });
-
-    if (tasks.length === 0) {
+    if (currentRoutineTasks.length === 0) {
         alert('Please add at least one task to the routine.');
         return;
     }
 
-    const newRoutine = new Routine(routineName, tasks);
+    const newRoutine = new Routine(routineName, currentRoutineTasks);
     routines.push(newRoutine);
 
-    // Display the routine on the home screen
     const routinesContainer = document.getElementById('routines-container');
     const routineButton = document.createElement('button');
     routineButton.classList.add('btn', 'routine-btn');
@@ -171,12 +155,10 @@ document.getElementById('create-routine-btn').addEventListener('click', () => {
     });
     routinesContainer.appendChild(routineButton);
 
-    console.log('Routine Created:', newRoutine);
     alert(`Routine "${newRoutine.name}" created with ${newRoutine.tasks.length} tasks!`);
-
-    // Clear the form
     document.getElementById('routine-name').value = '';
-    tasksContainer.innerHTML = '';
+    document.getElementById('tasks-container').innerHTML = '';
+    currentRoutineTasks = [];
     navigateTo('home');
 });
 
@@ -191,29 +173,23 @@ function playRoutine(routineName) {
     const playingView = document.getElementById('playing-view');
     const playingMessage = document.getElementById('playing-message');
 
-    // Ensure the screen is cleared before starting
     playingMessage.innerHTML = '';
     navigateTo('playing');
 
     let currentTaskIndex = 0;
-    let countdownInterval;
 
     function visualizeTask(task, durationInMilliseconds) {
-        // Change the background color
-        playingView.style.backgroundColor = task.color;
-
-        // Parse duration into seconds
+        playingView.style.backgroundColor = task.color || 'var(--bg)';
         const totalSeconds = Math.floor(durationInMilliseconds / 1000);
         let remainingSeconds = totalSeconds;
 
-        // Display the task emoji, name, and initial countdown
         playingMessage.innerHTML = `
             <div style="font-size: 100px; margin-bottom: 20px;">${task.emoji}</div>
             <div style="font-size: 24px; margin-bottom: 10px;">${task.name}</div>
             <div id="countdown" style="font-size: 32px;">${formatTime(remainingSeconds)}</div>
         `;
 
-        // Update the countdown every second
+        clearInterval(countdownInterval);
         countdownInterval = setInterval(() => {
             remainingSeconds--;
             document.getElementById('countdown').textContent = formatTime(remainingSeconds);
@@ -224,31 +200,24 @@ function playRoutine(routineName) {
         }, 1000);
     }
 
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-        const secs = (seconds % 60).toString().padStart(2, '0');
-        return `${mins}:${secs}`;
-    }
-
     function playNextTask() {
         if (currentTaskIndex < routine.tasks.length) {
             const task = routine.tasks[currentTaskIndex];
-            const [hours, minutes, seconds] = task.duration.split(':').map(Number);
-            const durationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+            const durationInMilliseconds = (task.minutes * 60 + task.seconds) * 1000;
 
             visualizeTask(task, durationInMilliseconds);
 
             setTimeout(() => {
-                clearInterval(countdownInterval); // Ensure countdown stops before the next task
+                clearInterval(countdownInterval);
                 currentTaskIndex++;
                 playNextTask();
             }, durationInMilliseconds);
         } else {
-            // All tasks are complete, return to the home screen
-            clearInterval(countdownInterval); // Ensure no leftover intervals
+            clearInterval(countdownInterval);
+            playingView.style.backgroundColor = 'var(--bg)';
             navigateTo('home');
         }
     }
 
-    playNextTask(); // Start playing the first task
+    playNextTask();
 }

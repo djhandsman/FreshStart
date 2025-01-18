@@ -273,7 +273,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #000; /* Default background */
+  background-color: var(--bg); /* Use the app's default background */
   color: white;
   z-index: 10; /* Ensure it stays above other views when active */
 }
