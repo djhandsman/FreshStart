@@ -15,6 +15,11 @@ function navigateTo(view) {
     // Show the selected view
     if (view === 'new-routine') {
         newRoutineView.classList.remove('hidden');
+
+        // Reset Routine Name field to "Routine name"
+        const routineNameInput = document.getElementById('routine-name');
+        routineNameInput.value = ''; // Clear the field
+        routineNameInput.placeholder = 'Routine name'; // Reset placeholder
     } else if (view === 'home') {
         homeView.classList.remove('hidden');
     } else if (view === 'playing') {
@@ -26,15 +31,22 @@ function navigateTo(view) {
     }
 }
 
+
 // References to the task sheet
 const taskSheet = document.getElementById('task-sheet');
 let currentRoutineTasks = []; // Array to store tasks for the current routine
 let countdownInterval; // Store the interval globally for clearing
 
 // Show the task sheet when the Add Task button is clicked
+// Show the task sheet when the Add Task button is clicked
 document.getElementById('add-task-btn').addEventListener('click', () => {
     taskSheet.classList.remove('hidden');
     taskSheet.classList.add('show');
+
+    // Reset Task Name field to "Task Name"
+    const taskNameInput = document.getElementById('task-name');
+    taskNameInput.value = ''; // Clear the field
+    taskNameInput.placeholder = 'Task Name'; // Reset placeholder
 });
 
 // Hide the task sheet and reset fields
@@ -220,3 +232,20 @@ function playRoutine(routineName) {
 
     playNextTask();
 }
+
+// Reference to the Task Name input field
+const taskNameInput = document.getElementById('task-name');
+
+// Clear placeholder on focus
+taskNameInput.addEventListener('focus', () => {
+    if (taskNameInput.value === '') {
+        taskNameInput.placeholder = ''; // Clear placeholder
+    }
+});
+
+// Restore placeholder if left blank
+taskNameInput.addEventListener('blur', () => {
+    if (taskNameInput.value === '') {
+        taskNameInput.placeholder = 'Task Name'; // Restore placeholder
+    }
+});
