@@ -9,17 +9,12 @@
   </head>
   <body>
     <div id="home-view" class="container">
-        <h1>Welcome to Fresh Start</h1>
-        <button class="btn" onclick="navigateTo('new-routine')">
-          Create New Routine
-        </button>
-        <div id="routines-container"></div> <!-- Missing routines container -->
-      </div>
-
-    <div id="playing-view" class="container hidden">
-        <button type="button" class="btn back-btn" onclick="navigateTo('home')"></button>
-        <h1 id="playing-message"></h1>
-      </div>
+      <h1>Welcome to Fresh Start</h1>
+      <button class="btn" onclick="navigateTo('new-routine')">
+        Create New Routine
+      </button>
+      <div id="routines-container"></div>
+    </div>
 
     <div id="new-routine-view" class="container hidden">
       <button
@@ -31,11 +26,21 @@
       <form>
         <label for="routine-name">Routine Name:</label>
         <input type="text" id="routine-name" placeholder="Enter routine name" />
-        <br /><br />
-      <button id="add-task-btn" class="btn" type="button">Add Task</button>
-    </form>
+        <button id="add-task-btn" class="btn" type="button">Add Task</button>
+      </form>
       <div id="tasks-container"></div>
-      <button id="create-routine-btn" class="btn" type="button">Create Routine</button>
+      <button id="create-routine-btn" class="btn" type="button">
+        Create Routine
+      </button>
+    </div>
+
+    <div id="playing-view" class="container hidden">
+      <button
+        type="button"
+        class="btn back-btn"
+        onclick="navigateTo('home')"
+      ></button>
+      <h1 id="playing-message"></h1>
     </div>
   </body>
 </html>

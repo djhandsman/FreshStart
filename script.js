@@ -6,10 +6,12 @@ function navigateTo(view) {
     const newRoutineView = document.getElementById('new-routine-view');
     const playingView = document.getElementById('playing-view');
 
+    // Hide all views first
     homeView.classList.add('hidden');
     newRoutineView.classList.add('hidden');
     playingView.classList.add('hidden');
 
+    // Show the selected view
     if (view === 'new-routine') {
         newRoutineView.classList.remove('hidden');
     } else if (view === 'home') {
@@ -132,43 +134,66 @@ function playRoutine(routineName) {
 
     // Ensure the screen is cleared before starting
     playingMessage.innerHTML = '';
-
     navigateTo('playing');
 
     let currentTaskIndex = 0;
+    let countdownInterval;
 
-    function visualizeTask(task) {
+    function visualizeTask(task, durationInMilliseconds) {
         // Change the background color
         playingView.style.backgroundColor = task.color;
 
-        // Display the task emoji and name
+        // Parse duration into seconds
+        const totalSeconds = Math.floor(durationInMilliseconds / 1000);
+        let remainingSeconds = totalSeconds;
+
+        // Display the task emoji, name, and initial countdown
         playingMessage.innerHTML = `
             <div style="font-size: 100px; margin-bottom: 20px;">${task.emoji}</div>
-            <div style="font-size: 24px;">${task.name}</div>
+            <div style="font-size: 24px; margin-bottom: 10px;">${task.name}</div>
+            <div id="countdown" style="font-size: 32px;">${formatTime(remainingSeconds)}</div>
         `;
+
+        // Update the countdown every second
+        countdownInterval = setInterval(() => {
+            remainingSeconds--;
+            document.getElementById('countdown').textContent = formatTime(remainingSeconds);
+
+            if (remainingSeconds <= 0) {
+                clearInterval(countdownInterval);
+            }
+        }, 1000);
+    }
+
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const secs = (seconds % 60).toString().padStart(2, '0');
+        return `${mins}:${secs}`;
     }
 
     function playNextTask() {
         if (currentTaskIndex < routine.tasks.length) {
             const task = routine.tasks[currentTaskIndex];
-            visualizeTask(task);
-
-            // Wait for the task duration before moving to the next task
             const [hours, minutes, seconds] = task.duration.split(':').map(Number);
             const durationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
 
+            visualizeTask(task, durationInMilliseconds);
+
             setTimeout(() => {
+                clearInterval(countdownInterval); // Ensure countdown stops before the next task
                 currentTaskIndex++;
                 playNextTask();
             }, durationInMilliseconds);
         } else {
             // All tasks are complete, return to the home screen
+            clearInterval(countdownInterval); // Ensure no leftover intervals
             navigateTo('home');
         }
     }
 
     playNextTask(); // Start playing the first task
 }
+
 
 
 
