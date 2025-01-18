@@ -97,14 +97,15 @@ document.getElementById('add-task-to-list').addEventListener('click', () => {
     taskRow.classList.add('task-row');
 
     taskRow.innerHTML = `
-    <div style="font-size: 18px; font-weight: 600;">${newTask.name}</div>
+    <div class="task-name">${newTask.name}</div>
     <div style="display: flex; align-items: center; gap: 10px;">
         <span style="font-size: 24px;">${newTask.emoji}</span>
         <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
-        <span>${newTask.minutes}m ${newTask.seconds}s</span>
+        <span class="task-duration">${newTask.minutes}m ${newTask.seconds}s</span>
         <button class="delete-task-btn">X</button>
     </div>
 `;
+
 
     taskRow.querySelector('.delete-task-btn').addEventListener('click', () => {
         currentRoutineTasks = currentRoutineTasks.filter(task => task !== newTask);
