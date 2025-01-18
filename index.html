@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh Start</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="home-view" class="container">
+      <h1>Welcome to Fresh Start</h1>
+      <button class="btn" onclick="navigateTo('new-routine')">
+        Create New Routine
+      </button>
+    </div>
+
+    <div id="new-routine-view" class="container hidden">
+      <button
+        type="button"
+        class="btn back-btn"
+        onclick="navigateTo('home')"
+      ></button>
+      <h1>Create a New Routine</h1>
+      <form>
+        <label for="routine-name">Routine Name:</label>
+        <input type="text" id="routine-name" placeholder="Enter routine name" />
+        <br /><br />
+
+        <label for="routine-emoji">Choose an Emoji:</label>
+        <select id="routine-emoji">
+          <option value="😊">😊 Happy</option>
+          <option value="💪">💪 Strength</option>
+          <option value="🧘">🧘 Relax</option>
+          <option value="🎶">🎶 Music</option>
+          <option value="🍎">🍎 Health</option>
+          <option value="🚴">🚴 Exercise</option>
+          <option value="☕">☕ Coffee</option>
+        </select>
+        <br /><br />
+        <label for="routine-duration">Duration:</label>
+        <div id="routine-duration">
+          <input type="number" id="hours" placeholder="HH" min="0" max="99" />
+          <span>:</span>
+          <input type="number" id="minutes" placeholder="MM" min="0" max="59" />
+          <span>:</span>
+          <input type="number" id="seconds" placeholder="SS" min="0" max="59" />
+        </div>
+        <br /><br />
+      </form>
+      <button id="add-task-btn" class="btn" type="button">Add Task</button>
+      <div id="tasks-container"></div>
+    </div>
+  </body>
+</html>
