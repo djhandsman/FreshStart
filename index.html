@@ -34,7 +34,10 @@
         placeholder="Routine name"
         autocomplete="off"
       />
-      <button id="add-task-btn" class="btn" type="button">Add Task</button>
+      <button id="add-task-btn" class="btn add-task-btn" type="button">
+        <span class="icon">+</span>
+        <span class="btn-text">Add Task</span>
+    </button>
       <div id="tasks-container"></div>
       <button id="create-routine-btn" class="btn" type="button">
         Create Routine
@@ -42,17 +45,22 @@
       <div id="task-sheet" class="task-sheet hidden">
         <input type="text" id="task-name" placeholder="Task Name" />
         <select id="emoji-selector">
-            <option value="😊">😊 Happy</option>
-            <option value="💪">💪 Strength</option>
-            <option value="🧘">🧘 Relax</option>
-            <option value="🎶">🎶 Music</option>
-            <option value="🍎">🍎 Health</option>
-            <option value="🚴">🚴 Exercise</option>
-            <option value="☕">☕ Coffee</option>
+            <option value="😊">😊</option>
+            <option value="💪">💪</option>
+            <option value="🧘">🧘</option>
+            <option value="🎶">🎶</option>
+            <option value="🍎">🍎</option>
+            <option value="🚴">🚴</option>
+            <option value="☕">☕</option>
         </select>
-        <input type="color" id="color-selector" value="#e0e0e0" />
-        <input type="number" id="minutes-selector" placeholder="Minutes" min="0" />
-        <input type="number" id="seconds-selector" placeholder="Seconds" min="0" max="59" />
+        <div class="color-input-container">
+            <input type="color" id="color-selector" />
+        </div>
+        
+        <div class="time-inputs">
+            <input type="number" id="minutes-selector" placeholder="Minutes" min="0" />
+            <input type="number" id="seconds-selector" placeholder="Seconds" min="0" max="59" />
+        </div>
         <button id="add-task-to-list" class="btn">Add</button>
     </div>
     

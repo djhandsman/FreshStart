@@ -104,8 +104,20 @@ body {
 }
 
 #add-task-btn {
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Vertically align icon and text */
+  justify-content: center; /* Center content horizontally */
+  gap: 8px; /* Add space between the icon and text */
+  text-align: center; /* Ensure text stays aligned */
   margin: 20px 0; /* Vertical spacing only */
   width: auto; /* Flexible width */
+}
+
+.add-task-btn .icon {
+  font-size: 30px; /* Icon size */
+  font-weight: 100; /* Light weight for the icon */
+  color: var(--dark-text); /* Match text color */
+  transform: translateY(-1px); /* Slight adjustment for alignment */
 }
 
 #add-task-to-list {
@@ -223,7 +235,7 @@ body {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0px;
   width: 100%;
 }
 
@@ -231,7 +243,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px; /* Set height */
+  height: 70px; /* Set height */
   background-color: var(--white); /* Set background to white */
   padding: 0 10px; /* Adjust padding */
   border-bottom: 1px solid var(--outline); /* Light grey dividing line */
@@ -248,9 +260,18 @@ body {
   gap: 10px; /* Space between emoji and duration */
 }
 
-.task-row .delete-task-btn {
-  margin-left: 10px; /* Add space between the delete button and other elements */
+.delete-task-icon {
+  font-family: "Rethink Sans", serif; /* Use Rethink Sans */
+  font-size: 100px; /* Size for the "×" */
+  font-weight: 200; /* Normal weight */
+  color: var(--medium-grey); /* Grey color */
+  cursor: pointer; /* Pointer cursor for interactivity */
 }
+
+.delete-task-icon:hover {
+  color: var(--dark-text); /* Darker color on hover */
+}
+
 
 .task-row div:first-child {
   font-family: "Rethink Sans", serif; /* Use Rethink Sans */
@@ -263,20 +284,6 @@ body {
   font-family: "Rethink Sans", serif; /* Use Rethink Sans */
   font-size: 18px; /* Font size for duration */
   font-weight: 600; /* Semibold */
-}
-
-
-.delete-task-btn {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.delete-task-btn:hover {
-  background-color: #d11a1a;
 }
 
 #routines-container {
@@ -305,12 +312,13 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 460px; /* Set the height to 460px */
+  height: 540px; /* Set the height to 460px */
   background-color: var(--white);
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
   gap: 20px;
   z-index: 20;
   transform: translateY(100%);
@@ -326,6 +334,30 @@ body {
 .task-sheet.hidden {
   transform: translateY(0); /* Slide down out of view */
 }
+
+.task-sheet input[type="text"],
+.task-sheet input[type="number"],
+.task-sheet select,
+.task-sheet input[type="color"] {
+    height: 80px; /* Set height */
+    border: 2px solid var(--outline); /* Border with outline color */
+    border-radius: 20px; /* Rounded corners */
+    font-family: "Rethink Sans", serif; /* Consistent font */
+    font-size: 18px; /* Slightly larger text for readability */
+    padding: 0 15px; /* Add padding for better appearance */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+    color: var(--dark-text); /* Text color */
+    background-color: var(--white); /* Background color */
+}
+
+.task-sheet input[type="text"]:focus,
+.task-sheet input[type="number"]:focus,
+.task-sheet select:focus,
+.task-sheet input[type="color"]:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: var(--purple); /* Highlight with purple when focused */
+}
+
 
 #playing-view {
   position: absolute;
@@ -357,3 +389,88 @@ body {
   width: 80%; /* Optional: Adjust width */
   margin: 0 auto; /* Center horizontally */
 }
+
+.time-inputs {
+  display: flex; /* Use flexbox for alignment */
+  gap: 20px; /* Add space between the inputs */
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+.time-inputs input[type="number"] {
+  flex: 1; /* Make each input take up an equal portion of the space */
+  height: 80px; /* Match the specified height */
+  border: 2px solid var(--outline); /* Use the outline color */
+  border-radius: 20px; /* Rounded corners */
+  font-family: "Rethink Sans", serif; /* Consistent font */
+  font-size: 18px; /* Slightly larger text for readability */
+  padding: 0 15px; /* Add padding inside the inputs */
+  box-sizing: border-box; /* Include padding and border in the dimensions */
+  color: var(--dark-text); /* Text color */
+  background-color: var(--white); /* Background color */
+}
+
+.time-inputs input[type="number"]:focus {
+  outline: none; /* Remove the default focus outline */
+  border-color: var(--purple); /* Highlight border on focus */
+}
+
+.color-input-container {
+  height: 80px; /* Match input field height */
+  border: 2px solid var(--outline); /* Border using outline color */
+  border-radius: 20px; /* Rounded corners */
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  box-sizing: border-box; /* Include padding and border in dimensions */
+  background-color: var(--white); /* Match input field background */
+}
+
+#color-selector {
+  appearance: none; /* Remove default browser styles */
+  -webkit-appearance: none; /* For WebKit browsers */
+  border: none;
+  width: 55px; /* Fixed width */
+  height: 55px; /* Fixed height */
+  border-radius: 50%; /* Make it a circle */
+  background-color: transparent; /* Make background transparent */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  padding: 0;
+  outline: none; /* Remove focus outline */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for better visuals */
+}
+
+/* Ensure the color swatch is circular and fills the input */
+#color-selector::-webkit-color-swatch-wrapper {
+  padding: 0; /* Remove default padding */
+  border-radius: 50%; /* Ensure wrapper stays circular */
+  display: flex; /* Flex to center align the swatch */
+  justify-content: center;
+  align-items: center;
+}
+
+#color-selector::-webkit-color-swatch {
+  border-radius: 50%; /* Make the swatch circular */
+  width: 100%; /* Ensure it covers the full input area */
+  height: 100%; /* Ensure it covers the full input area */
+  border: none; /* Remove the default border */
+  margin: 0; /* Remove any margin */
+  padding: 0; /* Remove padding */
+  box-sizing: border-box; /* Prevent content overflow */
+}
+
+#emoji-selector {
+  display: flex; /* Enables alignment */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  text-align: center; /* Ensure emoji is centered in the dropdown */
+  font-size: 60px; /* Make emoji bigger */
+  height: 80px; /* Match other input heights */
+  border: 2px solid var(--outline); /* Border color */
+  border-radius: 20px; /* Rounded edges */
+  font-family: "Rethink Sans", serif; /* Ensure consistent font style */
+  background-color: var(--white); /* Match input background */
+  color: var(--dark-text); /* Text color */
+  padding: 0; /* Remove padding to center properly */
+  appearance: none; /* Remove default dropdown styling */
+}
+
