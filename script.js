@@ -194,6 +194,21 @@ function playRoutine(routineName) {
     playNextTask(); // Start playing the first task
 }
 
+const routineNameInput = document.getElementById('routine-name');
+
+routineNameInput.addEventListener('focus', () => {
+  if (routineNameInput.value === '') {
+    routineNameInput.placeholder = '';
+  }
+});
+
+routineNameInput.addEventListener('blur', () => {
+  if (routineNameInput.value === '') {
+    routineNameInput.placeholder = 'Routine name';
+  }
+});
+
+
 
 
 

@@ -90,6 +90,17 @@ body {
 
 #routine-name {
   margin-top: 200px; /* Optionally add space above just the input */
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /* Matches semibold weight of the header */
+  font-style: normal;
+  font-size: 30px; /* Same size as the header */
+  color: var(--dark-text); /* Matches the header color */
+  background-color: transparent; /* Removes the fill */
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  text-align: center; /* Optional: Center-align the text */
+  width: 80%; /* Optional: Adjust width */
 }
 
 #add-task-btn {
