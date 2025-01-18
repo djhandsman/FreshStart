@@ -71,14 +71,14 @@ body {
 }
 
 #new-routine-view {
-    align-items: center; /* Horizontally center all children */
-    justify-content: flex-start; /* Align children at the top */
-    width: 100%; /* Ensure it spans the full width of the screen */
-    margin: 0 auto; /* Center horizontally within the viewport */
-    box-sizing: border-box; /* Ensure padding is accounted for */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements horizontally */
+    gap: 20px; /* Space between elements */
 }
 
 #add-task-btn {
+    
     margin: 20px 0; /* Vertical spacing only */
     width: auto; /* Flexible width */
 }
@@ -98,12 +98,12 @@ body {
     color: var(--dark-text);
     border: none;
     border-radius: 100px;
-    left: 50%;
-    transform: translateX(-50%);
+/*     left: 50%;
+    transform: translateX(-50%); */
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
 }
 
-.home-btn {
+.new-routine-btn {
     display: flex; /* Flexbox for alignment */
     align-items: center; /* Vertically align icon and text */
     justify-content: center; /* Center content horizontally */
@@ -113,7 +113,7 @@ body {
     bottom: 32px;
   }
 
-  .home-btn .icon {
+  .new-routine-btn .icon {
     font-size: 30px; /* Size for the icon */
     font-weight: 100;
     color: var(--dark-text); /* Match the text color */
