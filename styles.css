@@ -192,16 +192,33 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .task-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #e0e0e0;
-  padding: 10px;
-  border-radius: 5px;
+  height: 60px; /* Set height */
+  background-color: var(--white); /* Set background to white */
+  padding: 0 10px; /* Adjust padding */
+  border-bottom: 1px solid var(--outline); /* Light grey dividing line */
 }
+
+.task-row:last-child {
+  border-bottom: none; /* Remove border for the last row */
+}
+
+.task-row div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between emoji and duration */
+}
+
+.task-row .delete-task-btn {
+  margin-left: 10px; /* Add space between the delete button and other elements */
+}
+
 
 .delete-task-btn {
   background-color: #ff4d4d;
