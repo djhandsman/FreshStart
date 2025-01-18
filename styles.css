@@ -209,6 +209,14 @@ body {
 #create-routine-btn {
   position: fixed;
   bottom: 32px;
+  background-color: var(--purple); /* Use the purple color */
+  color: var(--white); /* Set text color to white */
+}
+
+#create-routine-btn.disabled {
+  background-color: var(--medium-grey); /* Medium grey */
+  color: var(--white); /* White text */
+  cursor: not-allowed; /* Show a not-allowed cursor */
 }
 
 #tasks-container {

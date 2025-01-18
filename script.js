@@ -2,15 +2,21 @@
 const routines = [];
 
 // Navigation function
+// Navigation function
 function navigateTo(view) {
     const homeView = document.getElementById('home-view');
     const newRoutineView = document.getElementById('new-routine-view');
     const playingView = document.getElementById('playing-view');
+    const taskSheet = document.getElementById('task-sheet');
 
     // Hide all views first
     homeView.classList.add('hidden');
     newRoutineView.classList.add('hidden');
     playingView.classList.add('hidden');
+
+    // Ensure task sheet is hidden initially
+    taskSheet.classList.add('hidden');
+    taskSheet.classList.remove('show');
 
     // Show the selected view
     if (view === 'new-routine') {
@@ -104,24 +110,27 @@ document.getElementById('add-task-to-list').addEventListener('click', () => {
     const newTask = new Task(taskName, emoji, color, minutes, seconds);
     currentRoutineTasks.push(newTask);
 
+    // Call the update function here
+    updateCreateRoutineButtonState();
+
     const tasksContainer = document.getElementById('tasks-container');
     const taskRow = document.createElement('div');
     taskRow.classList.add('task-row');
 
     taskRow.innerHTML = `
-    <div class="task-name">${newTask.name}</div>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 24px;">${newTask.emoji}</span>
-        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
-        <span class="task-duration">${newTask.minutes}m ${newTask.seconds}s</span>
-        <button class="delete-task-btn">X</button>
-    </div>
-`;
-
+        <div class="task-name">${newTask.name}</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">${newTask.emoji}</span>
+            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
+            <span class="task-duration">${newTask.minutes}m ${newTask.seconds}s</span>
+            <button class="delete-task-btn">X</button>
+        </div>
+    `;
 
     taskRow.querySelector('.delete-task-btn').addEventListener('click', () => {
         currentRoutineTasks = currentRoutineTasks.filter(task => task !== newTask);
         taskRow.remove();
+        updateCreateRoutineButtonState(); // Update button state on task removal
     });
 
     tasksContainer.appendChild(taskRow);
@@ -133,6 +142,22 @@ document.getElementById('add-task-to-list').addEventListener('click', () => {
 
     hideTaskSheet();
 });
+
+// Add this new function to the end of your file
+function updateCreateRoutineButtonState() {
+    const createRoutineBtn = document.getElementById('create-routine-btn');
+    if (currentRoutineTasks.length > 0) {
+        createRoutineBtn.classList.remove('disabled');
+        createRoutineBtn.disabled = false;
+    } else {
+        createRoutineBtn.classList.add('disabled');
+        createRoutineBtn.disabled = true;
+    }
+}
+
+// Call the function to initialize the state
+updateCreateRoutineButtonState();
+
 
 // Format duration as "Xm Ys"
 function formatTime(seconds) {
@@ -249,3 +274,4 @@ taskNameInput.addEventListener('blur', () => {
         taskNameInput.placeholder = 'Task Name'; // Restore placeholder
     }
 });
+
