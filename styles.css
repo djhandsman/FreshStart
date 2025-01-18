@@ -1,3 +1,54 @@
+:root {
+    --dark-text: #000000; 
+    --bg: #EBEBEB; 
+    --grey-text: #6A6A6A; 
+    --medium-grey: #9D9D9D;
+    --purple: #575FFF;
+    --outline: #f1f1f1;
+    --white: #ffffff;
+    --button-hover: #f8f8f8;
+  }
+
+
+.rethink-sans-header {
+    font-family: "Rethink Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 600; /*semibold*/
+    font-style: normal;
+    font-size: 30px; /* Large size for a header */
+    color: var(--dark-text);
+    
+  }
+
+  .rethink-sans-normal {
+    font-family: "Rethink Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 22px; /* Large size for a header */
+  }
+
+  .rethink-sans-small {
+    font-family: "Rethink Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 32px; /* Large size for a header */
+  }
+
+  .rethink-sans-task-list {
+    font-family: "Rethink Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px; /* Large size for a header */
+    color: var(--dark-text);
+  }
+
+
+
+
+
 .hidden {
     display: none !important; /* Ensure hidden views are not visible */
 }
@@ -9,22 +60,65 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: var(--bg);
+    padding-left: 32px;
+    padding-right: 32px;
+    box-sizing: border-box; /* Ensure padding is included in the width calculation */
 }
 
 .container {
     text-align: center;
 }
 
-.btn {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #00ff1e;
-    color: white;
-    border: none;
-    border-radius: 5px;
+#new-routine-view {
+    align-items: center; /* Horizontally center all children */
+    justify-content: flex-start; /* Align children at the top */
+    width: 100%; /* Ensure it spans the full width of the screen */
+    margin: 0 auto; /* Center horizontally within the viewport */
+    box-sizing: border-box; /* Ensure padding is accounted for */
 }
+
+#add-task-btn {
+    margin: 20px 0; /* Vertical spacing only */
+    width: auto; /* Flexible width */
+}
+
+.btn {
+    font-family: "Rethink Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 22px;
+    height: 60px;
+    width: 100%; /* Use full width */
+    max-width: 500px; /* Restrict to a maximum width */
+    padding: 0px 20px;
+    cursor: pointer;
+    background-color: var(--white);
+    color: var(--dark-text);
+    border: none;
+    border-radius: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+}
+
+.home-btn {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Vertically align icon and text */
+    justify-content: center; /* Center content horizontally */
+    gap: 8px; /* Add space between the icon and text */
+    text-align: center; /* Ensure text stays aligned */
+    position: fixed;
+    bottom: 32px;
+  }
+
+  .home-btn .icon {
+    font-size: 30px; /* Size for the icon */
+    font-weight: 100;
+    color: var(--dark-text); /* Match the text color */
+    transform: translateY(-1px);
+  }
 
 .back-btn {
     width: 50px;
@@ -52,11 +146,17 @@ body {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover);
 }
 
 .hidden {
     display: none;
+}
+
+#create-routine-btn {
+    position: fixed;
+    bottom: 32px;
+    
 }
 
 #tasks-container {

@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fresh Start</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <script src="script.js" defer></script>
   </head>
   <body>
     <div id="home-view" class="container">
-      <h1>Welcome to Fresh Start</h1>
-      <button class="btn" onclick="navigateTo('new-routine')">
-        Create New Routine
+      <h1 class="rethink-sans-header">My Routines</h1>
+      <button class="btn home-btn" onclick="navigateTo('new-routine')">
+        <span class="icon">+</span>
+        <span class="btn-text">New Routine</span>
       </button>
       <div id="routines-container"></div>
     </div>
@@ -22,12 +27,8 @@
         class="btn back-btn"
         onclick="navigateTo('home')"
       ></button>
-      <h1>Create a New Routine</h1>
-      <form>
-        <label for="routine-name">Routine Name:</label>
-        <input type="text" id="routine-name" placeholder="Enter routine name" />
-        <button id="add-task-btn" class="btn" type="button">Add Task</button>
-      </form>
+      <input type="text" id="routine-name" placeholder="Enter routine name" />
+      <button id="add-task-btn" class="btn" type="button">Add Task</button>
       <div id="tasks-container"></div>
       <button id="create-routine-btn" class="btn" type="button">
         Create Routine
