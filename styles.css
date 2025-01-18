@@ -1,227 +1,228 @@
 :root {
-    --dark-text: #000000; 
-    --bg: #EBEBEB; 
-    --grey-text: #6A6A6A; 
-    --medium-grey: #9D9D9D;
-    --purple: #575FFF;
-    --outline: #f1f1f1;
-    --white: #ffffff;
-    --button-hover: #f8f8f8;
-  }
-
+  --dark-text: #000000;
+  --bg: #ebebeb;
+  --grey-text: #6a6a6a;
+  --medium-grey: #9d9d9d;
+  --purple: #575fff;
+  --outline: #f1f1f1;
+  --white: #ffffff;
+  --button-hover: #f8f8f8;
+}
 
 .rethink-sans-header {
-    font-family: "Rethink Sans", serif;
-    font-optical-sizing: auto;
-    font-weight: 600; /*semibold*/
-    font-style: normal;
-    font-size: 30px; /* Large size for a header */
-    color: var(--dark-text);
-    
-  }
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /*semibold*/
+  font-style: normal;
+  font-size: 30px; /* Large size for a header */
+  color: var(--dark-text);
+}
 
-  .rethink-sans-normal {
-    font-family: "Rethink Sans", serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 22px; /* Large size for a header */
-  }
+.rethink-sans-normal {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 22px; /* Large size for a header */
+}
 
-  .rethink-sans-small {
-    font-family: "Rethink Sans", serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 32px; /* Large size for a header */
-  }
+.rethink-sans-small {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 32px; /* Large size for a header */
+}
 
-  .rethink-sans-task-list {
-    font-family: "Rethink Sans", serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 18px; /* Large size for a header */
-    color: var(--dark-text);
-  }
-
-
-
-
+.rethink-sans-task-list {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 18px; /* Large size for a header */
+  color: var(--dark-text);
+}
 
 .hidden {
-    display: none !important; /* Ensure hidden views are not visible */
+  display: none !important; /* Ensure hidden views are not visible */
 }
 
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: var(--bg);
-    padding-left: 32px;
-    padding-right: 32px;
-    box-sizing: border-box; /* Ensure padding is included in the width calculation */
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--bg);
+  padding-left: 32px;
+  padding-right: 32px;
+  box-sizing: border-box; /* Ensure padding is included in the width calculation */
 }
 
 .container {
-    text-align: center;
+  text-align: center;
+}
+
+#home-view {
+  display: flex;             /* Enable flexbox layout */
+  flex-direction: column;    /* Stack children vertically */
+  justify-content: center;   /* Center children vertically */
+  align-items: center;       /* Center children horizontally */
+  height: 100vh;             /* Full viewport height */
 }
 
 #new-routine-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center elements horizontally */
-    gap: 20px; /* Space between elements */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center elements horizontally */
+  gap: 20px; /* Space between elements */
 }
 
 #add-task-btn {
-    
-    margin: 20px 0; /* Vertical spacing only */
-    width: auto; /* Flexible width */
+  margin: 20px 0; /* Vertical spacing only */
+  width: auto; /* Flexible width */
 }
 
 .btn {
-    font-family: "Rethink Sans", serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 22px;
-    height: 60px;
-    width: 100%; /* Use full width */
-    max-width: 500px; /* Restrict to a maximum width */
-    padding: 0px 20px;
-    cursor: pointer;
-    background-color: var(--white);
-    color: var(--dark-text);
-    border: none;
-    border-radius: 100px;
-/*     left: 50%;
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 22px;
+  height: 60px;
+  width: 100%; /* Use full width */
+  max-width: 500px; /* Restrict to a maximum width */
+  padding: 0px 20px;
+  cursor: pointer;
+  background-color: var(--white);
+  color: var(--dark-text);
+  border: none;
+  border-radius: 100px;
+  /*     left: 50%;
     transform: translateX(-50%); */
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.10);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 .new-routine-btn {
-    display: flex; /* Flexbox for alignment */
-    align-items: center; /* Vertically align icon and text */
-    justify-content: center; /* Center content horizontally */
-    gap: 8px; /* Add space between the icon and text */
-    text-align: center; /* Ensure text stays aligned */
-    position: fixed;
-    bottom: 32px;
-  }
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Vertically align icon and text */
+  justify-content: center; /* Center content horizontally */
+  gap: 8px; /* Add space between the icon and text */
+  text-align: center; /* Ensure text stays aligned */
+  position: fixed;
+  bottom: 32px;
+}
 
-  .new-routine-btn .icon {
-    font-size: 30px; /* Size for the icon */
-    font-weight: 100;
-    color: var(--dark-text); /* Match the text color */
-    transform: translateY(-1px);
-  }
+.new-routine-btn .icon {
+  font-size: 30px; /* Size for the icon */
+  font-weight: 100;
+  color: var(--dark-text); /* Match the text color */
+  transform: translateY(-1px);
+}
 
 .back-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: #007BFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    position: relative;
+  position: absolute; /* Position relative to the viewport or nearest positioned parent */
+  top: 100px; /* 100px from the top of the window */
+  left: 32px; /* 32px from the left edge, respecting the margin */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #007bff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
 }
 
 .back-btn::before {
-    content: '';
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-top: 2px solid white;
-    border-left: 2px solid white;
-    transform: rotate(-45deg);
-    position: absolute;
-    left: 18px;
-    top: 18px;
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  transform: rotate(-45deg);
+  position: absolute;
+  left: 18px;
+  top: 18px;
 }
 
 .btn:hover {
-    background-color: var(--button-hover);
+  background-color: var(--button-hover);
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #create-routine-btn {
-    position: fixed;
-    bottom: 32px;
-    
+  position: fixed;
+  bottom: 32px;
 }
 
 #tasks-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .task-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e0e0e0;
-    padding: 10px;
-    border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .delete-task-btn {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 .delete-task-btn:hover {
-    background-color: #d11a1a;
+  background-color: #d11a1a;
 }
 
 #routines-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .routine-btn {
-    background-color: #ffc107;
-    color: #000;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #ffc107;
+  color: #000;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .routine-btn:hover {
-    background-color: #e0a800;
+  background-color: #e0a800;
 }
 
 #playing-view {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: #000; /* Default background */
-    color: white;
-    z-index: 10; /* Ensure it stays above other views when active */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #000; /* Default background */
+  color: white;
+  z-index: 10; /* Ensure it stays above other views when active */
 }
-
