@@ -1,6 +1,7 @@
+// Array to store routines
 const routines = [];
 
-
+// Navigation function
 function navigateTo(view) {
     const homeView = document.getElementById('home-view');
     const newRoutineView = document.getElementById('new-routine-view');
@@ -21,58 +22,115 @@ function navigateTo(view) {
     }
 }
 
+// References to the task sheet
+const taskSheet = document.getElementById('task-sheet');
 
+// Show the task sheet when the Add Task button is clicked
 document.getElementById('add-task-btn').addEventListener('click', () => {
-    const tasksContainer = document.getElementById('tasks-container');
-
-    // Create a new task object
-    const task = new Task(`Task ${tasksContainer.children.length + 1}`, '😊', '#e0e0e0', '00:00:00');
-
-    // Create a row for the task
-    const taskRow = document.createElement('div');
-    taskRow.classList.add('task-row');
-    taskRow.innerHTML = `
-        <input type="text" value="${task.name}" class="task-name-input" />
-        <select class="task-emoji-input">
-            <option value="😊" ${task.emoji === '😊' ? 'selected' : ''}>😊 Happy</option>
-            <option value="💪" ${task.emoji === '💪' ? 'selected' : ''}>💪 Strength</option>
-            <option value="🧘" ${task.emoji === '🧘' ? 'selected' : ''}>🧘 Relax</option>
-            <option value="🎶" ${task.emoji === '🎶' ? 'selected' : ''}>🎶 Music</option>
-            <option value="🍎" ${task.emoji === '🍎' ? 'selected' : ''}>🍎 Health</option>
-            <option value="🚴" ${task.emoji === '🚴' ? 'selected' : ''}>🚴 Exercise</option>
-            <option value="☕" ${task.emoji === '☕' ? 'selected' : ''}>☕ Coffee</option>
-        </select>
-        <input type="color" value="${task.color}" class="task-color-input" />
-        <input type="text" value="${task.duration}" class="task-duration-input" placeholder="HH:MM:SS" />
-        <button class="delete-task-btn">X</button>
-    `;
-
-    // Bind inputs to task properties
-    taskRow.querySelector('.task-name-input').addEventListener('input', (e) => {
-        task.name = e.target.value;
-    });
-
-    taskRow.querySelector('.task-emoji-input').addEventListener('change', (e) => {
-        task.emoji = e.target.value;
-    });
-
-    taskRow.querySelector('.task-color-input').addEventListener('input', (e) => {
-        task.color = e.target.value;
-    });
-
-    taskRow.querySelector('.task-duration-input').addEventListener('input', (e) => {
-        task.duration = e.target.value;
-    });
-
-    // Handle task deletion
-    taskRow.querySelector('.delete-task-btn').addEventListener('click', () => {
-        tasksContainer.removeChild(taskRow);
-        // Optionally handle removal from an array of tasks
-    });
-
-    tasksContainer.appendChild(taskRow);
+    console.log('Add Task button clicked'); // Log to confirm event is triggered
+    taskSheet.classList.remove('hidden');
+    taskSheet.classList.add('show');
 });
 
+// Hide the task sheet and reset fields
+function hideTaskSheet() {
+    taskSheet.classList.remove('show');
+    taskSheet.classList.add('hidden');
+}
+
+// Routine name input field interactions
+const routineNameInput = document.getElementById('routine-name');
+
+routineNameInput.addEventListener('focus', () => {
+    if (routineNameInput.value === '') {
+        routineNameInput.placeholder = '';
+    }
+});
+
+routineNameInput.addEventListener('blur', () => {
+    if (routineNameInput.value === '') {
+        routineNameInput.placeholder = 'Routine name';
+    }
+});
+
+// Routine and Task classes
+class Routine {
+    constructor(name, tasks) {
+        this.name = name;
+        this.tasks = tasks;
+    }
+}
+
+class Task {
+    constructor(name, emoji, color, duration) {
+        this.name = name; // Name of the task
+        this.emoji = emoji; // Emoji representing the task
+        this.color = color; // Color of the task
+        this.duration = duration; // Duration in seconds
+    }
+}
+
+// Adding functionality for "Add" button in task sheet
+document.getElementById('add-task-to-list').addEventListener('click', () => {
+    // Get user input from the task sheet
+    const taskName = document.getElementById('task-name').value.trim();
+    const emoji = document.getElementById('emoji-selector').value;
+    const color = document.getElementById('color-selector').value;
+    const duration = document.getElementById('duration-selector').value.trim();
+
+    // Validate inputs
+    if (!taskName || !duration) {
+        alert('Please provide a task name and duration.');
+        return;
+    }
+
+    // Create a new Task object
+    const newTask = new Task(taskName, emoji, color, duration);
+
+    // Add a visual representation of the task to the task container
+    const tasksContainer = document.getElementById('tasks-container');
+    const taskRow = document.createElement('div');
+    taskRow.classList.add('task-row');
+
+    taskRow.innerHTML = `
+        <div>
+            <span style="font-size: 24px; margin-right: 10px;">${newTask.emoji}</span>
+            <span>${newTask.name}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
+            <span>${formatDuration(newTask.duration)}</span>
+            <button class="delete-task-btn">X</button>
+        </div>
+    `;
+
+    // Add delete functionality to the task row
+    taskRow.querySelector('.delete-task-btn').addEventListener('click', () => {
+        taskRow.remove();
+    });
+
+    // Append the task row to the tasks container
+    tasksContainer.appendChild(taskRow);
+
+    // Clear task sheet fields
+    document.getElementById('task-name').value = '';
+    document.getElementById('color-selector').value = '#e0e0e0';
+    document.getElementById('duration-selector').value = '';
+
+    // Hide the task sheet
+    hideTaskSheet();
+});
+
+// Function to format duration as "Xh Ym"
+function formatDuration(duration) {
+    const [hours, minutes, seconds] = duration.split(':').map(Number);
+    let formattedDuration = '';
+    if (hours > 0) formattedDuration += `${hours}h `;
+    if (minutes > 0) formattedDuration += `${minutes}m`;
+    return formattedDuration.trim();
+}
+
+// Functionality for creating a new routine remains untouched
 document.getElementById('create-routine-btn').addEventListener('click', () => {
     const routineName = document.getElementById('routine-name').value.trim();
     const tasksContainer = document.getElementById('tasks-container');
@@ -85,10 +143,10 @@ document.getElementById('create-routine-btn').addEventListener('click', () => {
 
     const tasks = [];
     taskRows.forEach((row) => {
-        const name = row.querySelector('.task-name-input').value.trim();
-        const emoji = row.querySelector('.task-emoji-input').value;
-        const color = row.querySelector('.task-color-input').value;
-        const duration = row.querySelector('.task-duration-input').value.trim();
+        const name = row.querySelector('.task-name-input')?.value.trim();
+        const emoji = row.querySelector('.task-emoji-input')?.value;
+        const color = row.querySelector('.task-color-input')?.value;
+        const duration = row.querySelector('.task-duration-input')?.value.trim();
 
         if (name && duration) {
             tasks.push(new Task(name, emoji, color, duration));
@@ -122,6 +180,7 @@ document.getElementById('create-routine-btn').addEventListener('click', () => {
     navigateTo('home');
 });
 
+// Function to play a routine
 function playRoutine(routineName) {
     const routine = routines.find(r => r.name === routineName);
     if (!routine) {
@@ -193,97 +252,3 @@ function playRoutine(routineName) {
 
     playNextTask(); // Start playing the first task
 }
-
-// References to the task sheet and its fields
-const taskSheet = document.getElementById('task-sheet');
-const taskNameInput = document.getElementById('task-name');
-const emojiSelector = document.getElementById('emoji-selector');
-const colorSelector = document.getElementById('color-selector');
-const durationSelector = document.getElementById('duration-selector');
-const addTaskToListBtn = document.getElementById('add-task-to-list');
-
-// Show the task sheet
-document.getElementById('add-task-btn').addEventListener('click', () => {
-  console.log('Add Task button clicked'); // Log to confirm event is triggered
-  taskSheet.classList.remove('hidden');
-  taskSheet.classList.add('show');
-});
-
-// Hide the task sheet and reset fields
-function hideTaskSheet() {
-  taskSheet.classList.remove('show');
-  taskSheet.classList.add('hidden');
-  taskNameInput.value = '';
-  emojiSelector.value = '😊';
-  colorSelector.value = '#e0e0e0';
-  durationSelector.value = '';
-}
-
-// Add the task to the routine and hide the sheet
-addTaskToListBtn.addEventListener('click', () => {
-  const taskName = taskNameInput.value.trim();
-  const emoji = emojiSelector.value;
-  const color = colorSelector.value;
-  const duration = durationSelector.value.trim();
-
-  if (!taskName || !duration) {
-    alert('Please fill in all fields.');
-    return;
-  }
-
-  const newTask = new Task(taskName, emoji, color, duration);
-  routines.push(newTask); // Assuming `routines` is the array for tasks in the routine
-
-  // Optionally, add the task to the visible task list in the container
-  const tasksContainer = document.getElementById('tasks-container');
-  const taskRow = document.createElement('div');
-  taskRow.classList.add('task-row');
-  taskRow.textContent = `${emoji} ${taskName} (${duration})`;
-  tasksContainer.appendChild(taskRow);
-
-  // Hide the task sheet
-  hideTaskSheet();
-});
-
-// Hide the sheet when clicking outside (optional)
-window.addEventListener('click', (e) => {
-  if (!taskSheet.contains(e.target) && !e.target.closest('#add-task-btn')) {
-    hideTaskSheet();
-  }
-});
-
-
-
-
-const routineNameInput = document.getElementById('routine-name');
-
-routineNameInput.addEventListener('focus', () => {
-  if (routineNameInput.value === '') {
-    routineNameInput.placeholder = '';
-  }
-});
-
-routineNameInput.addEventListener('blur', () => {
-  if (routineNameInput.value === '') {
-    routineNameInput.placeholder = 'Routine name';
-  }
-});
-
-
-
-class Routine {
-    constructor(name, tasks) {
-      this.name = name;
-      this.tasks = tasks;
-    }
-}
-
-class Task {
-    constructor(name, emoji, color, duration,) {
-      this.name = name; // Name of the task
-      this.emoji = emoji; // Emoji representing the task
-      this.color = color; // Color of the task
-      this.duration = duration; // Duration in seconds
-    }
-  }
-  
