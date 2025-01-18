@@ -121,10 +121,55 @@ document.getElementById('create-routine-btn').addEventListener('click', () => {
 });
 
 function playRoutine(routineName) {
+    const routine = routines.find(r => r.name === routineName);
+    if (!routine) {
+        console.error(`Routine "${routineName}" not found.`);
+        return;
+    }
+
+    const playingView = document.getElementById('playing-view');
     const playingMessage = document.getElementById('playing-message');
-    playingMessage.textContent = `Playing "${routineName}"`;
+
+    // Ensure the screen is cleared before starting
+    playingMessage.innerHTML = '';
+
     navigateTo('playing');
+
+    let currentTaskIndex = 0;
+
+    function visualizeTask(task) {
+        // Change the background color
+        playingView.style.backgroundColor = task.color;
+
+        // Display the task emoji and name
+        playingMessage.innerHTML = `
+            <div style="font-size: 100px; margin-bottom: 20px;">${task.emoji}</div>
+            <div style="font-size: 24px;">${task.name}</div>
+        `;
+    }
+
+    function playNextTask() {
+        if (currentTaskIndex < routine.tasks.length) {
+            const task = routine.tasks[currentTaskIndex];
+            visualizeTask(task);
+
+            // Wait for the task duration before moving to the next task
+            const [hours, minutes, seconds] = task.duration.split(':').map(Number);
+            const durationInMilliseconds = (hours * 3600 + minutes * 60 + seconds) * 1000;
+
+            setTimeout(() => {
+                currentTaskIndex++;
+                playNextTask();
+            }, durationInMilliseconds);
+        } else {
+            // All tasks are complete, return to the home screen
+            navigateTo('home');
+        }
+    }
+
+    playNextTask(); // Start playing the first task
 }
+
 
 
 
