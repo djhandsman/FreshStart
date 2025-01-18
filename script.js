@@ -194,6 +194,67 @@ function playRoutine(routineName) {
     playNextTask(); // Start playing the first task
 }
 
+// References to the task sheet and its fields
+const taskSheet = document.getElementById('task-sheet');
+const taskNameInput = document.getElementById('task-name');
+const emojiSelector = document.getElementById('emoji-selector');
+const colorSelector = document.getElementById('color-selector');
+const durationSelector = document.getElementById('duration-selector');
+const addTaskToListBtn = document.getElementById('add-task-to-list');
+
+// Show the task sheet
+document.getElementById('add-task-btn').addEventListener('click', () => {
+  console.log('Add Task button clicked'); // Log to confirm event is triggered
+  taskSheet.classList.remove('hidden');
+  taskSheet.classList.add('show');
+});
+
+// Hide the task sheet and reset fields
+function hideTaskSheet() {
+  taskSheet.classList.remove('show');
+  taskSheet.classList.add('hidden');
+  taskNameInput.value = '';
+  emojiSelector.value = '😊';
+  colorSelector.value = '#e0e0e0';
+  durationSelector.value = '';
+}
+
+// Add the task to the routine and hide the sheet
+addTaskToListBtn.addEventListener('click', () => {
+  const taskName = taskNameInput.value.trim();
+  const emoji = emojiSelector.value;
+  const color = colorSelector.value;
+  const duration = durationSelector.value.trim();
+
+  if (!taskName || !duration) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  const newTask = new Task(taskName, emoji, color, duration);
+  routines.push(newTask); // Assuming `routines` is the array for tasks in the routine
+
+  // Optionally, add the task to the visible task list in the container
+  const tasksContainer = document.getElementById('tasks-container');
+  const taskRow = document.createElement('div');
+  taskRow.classList.add('task-row');
+  taskRow.textContent = `${emoji} ${taskName} (${duration})`;
+  tasksContainer.appendChild(taskRow);
+
+  // Hide the task sheet
+  hideTaskSheet();
+});
+
+// Hide the sheet when clicking outside (optional)
+window.addEventListener('click', (e) => {
+  if (!taskSheet.contains(e.target) && !e.target.closest('#add-task-btn')) {
+    hideTaskSheet();
+  }
+});
+
+
+
+
 const routineNameInput = document.getElementById('routine-name');
 
 routineNameInput.addEventListener('focus', () => {
@@ -207,12 +268,6 @@ routineNameInput.addEventListener('blur', () => {
     routineNameInput.placeholder = 'Routine name';
   }
 });
-
-
-
-
-
-
 
 
 

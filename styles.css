@@ -237,6 +237,31 @@ body {
   background-color: #e0a800;
 }
 
+.task-sheet {
+  position: fixed;
+  bottom: 0; /* Bottom positioning fixed to ensure transition works */
+  left: 0;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 20;
+  transform: translateY(100%); /* Start hidden off-screen */
+  transition: transform s ease-in-out;
+}
+
+.task-sheet.show {
+  transform: translateY(0); /* Slide into view */
+}
+
+
+.task-sheet.hidden {
+  transform: translateY(0); /* Slide down out of view */
+}
+
 #playing-view {
   position: absolute;
   top: 0;

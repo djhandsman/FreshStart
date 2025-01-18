@@ -22,11 +22,37 @@
     </div>
 
     <div id="new-routine-view" class="container hidden">
-      <button type="button" class="btn back-btn" onclick="navigateTo('home')"></button>
-      <input type="text" id="routine-name" placeholder="Routine name" autocomplete="off"/>
+      <button
+        type="button"
+        class="btn back-btn"
+        onclick="navigateTo('home')"
+      ></button>
+      <input
+        type="text"
+        id="routine-name"
+        placeholder="Routine name"
+        autocomplete="off"
+      />
       <button id="add-task-btn" class="btn" type="button">Add Task</button>
       <div id="tasks-container"></div>
-      <button id="create-routine-btn" class="btn" type="button">Create Routine</button>
+      <button id="create-routine-btn" class="btn" type="button">
+        Create Routine
+      </button>
+      <div id="task-sheet" class="task-sheet show">
+        <input type="text" id="task-name" placeholder="Task Name" />
+        <select id="emoji-selector">
+          <option value="😊">😊 Happy</option>
+          <option value="💪">💪 Strength</option>
+          <option value="🧘">🧘 Relax</option>
+          <option value="🎶">🎶 Music</option>
+          <option value="🍎">🍎 Health</option>
+          <option value="🚴">🚴 Exercise</option>
+          <option value="☕">☕ Coffee</option>
+        </select>
+        <input type="color" id="color-selector" value="#e0e0e0" />
+        <input type="text" id="duration-selector" placeholder="HH:MM:SS" />
+        <button id="add-task-to-list" class="btn">Add</button>
+      </div>
     </div>
 
     <div id="playing-view" class="container hidden">
