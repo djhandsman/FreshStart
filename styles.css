@@ -14,10 +14,13 @@
 .rethink-sans-header {
   font-family: "Rethink Sans", serif;
   font-optical-sizing: auto;
-  font-weight: 600; /*semibold*/
+  font-weight: 600;
   font-style: normal;
-  font-size: 30px; /* Large size for a header */
+  font-size: 32px;
   color: var(--dark-text);
+  position: relative; /* Keep the positioning */
+  top: 0; /* Remove large offset */
+  margin-bottom: 10px; /* Add appropriate spacing */
 }
 
 .rethink-sans-normal {
@@ -45,6 +48,17 @@
   color: var(--dark-text);
 }
 
+.subheader {
+  font-family: "Rethink Sans", serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--grey-text);
+  margin-top: 20; /* Adjust spacing */
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 230px;
+}
+
 .hidden {
   display: none !important; /* Ensure hidden views are not visible */
 }
@@ -62,16 +76,28 @@ body {
   box-sizing: border-box; /* Ensure padding is included in the width calculation */
 }
 
+
 .container {
   text-align: center;
 }
 
 #home-view {
-  display: flex;             /* Enable flexbox layout */
-  flex-direction: column;    /* Stack children vertically */
-  justify-content: center;   /* Center children vertically */
-  align-items: center;       /* Center children horizontally */
-  height: 100vh;             /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+  align-items: center; /* Keep children horizontally centered */
+  height: 100vh; /* Full viewport height */
+  padding-top: 150px; /* Add padding for spacing from the top */
+}
+
+#home-image {
+  position: absolute;
+  bottom: 140px;
+  left: 0;
+  width: 100vw; /* Match the viewport width */
+  height: auto; /* Maintain the aspect ratio */
+  object-fit: contain; /* Prevent cropping if needed */
+  z-index: -1; /* Keep the image behind other content */
 }
 
 #new-routine-view {
@@ -94,13 +120,17 @@ body {
   font-optical-sizing: auto;
   font-weight: 600; /* Matches semibold weight of the header */
   font-style: normal;
-  font-size: 30px; /* Same size as the header */
+  font-size: 32px; /* Same size as the header */
   color: var(--dark-text); /* Matches the header color */
   background-color: transparent; /* Removes the fill */
   border: none; /* Removes the border */
   outline: none; /* Removes the focus outline */
   text-align: center; /* Optional: Center-align the text */
   width: 80%; /* Optional: Adjust width */
+}
+
+#routine-name::placeholder {
+  color: var(--dark-text); /* Change placeholder text color to black */
 }
 
 #add-task-btn {
@@ -185,16 +215,17 @@ body {
 
 .back-btn {
   position: absolute; /* Position relative to the viewport or nearest positioned parent */
-  top: 100px; /* 100px from the top of the window */
-  left: 32px; /* 32px from the left edge, respecting the margin */
-  width: 50px;
-  height: 50px;
+  top: 40px; /* 100px from the top of the window */
+  left: 18px; /* 32px from the left edge, respecting the margin */
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: var(--back-button);
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
+  box-shadow: none;
 }
 
 .back-btn::before {
@@ -206,8 +237,8 @@ body {
   border-left: 2px solid var(--grey-text);
   transform: rotate(-45deg);
   position: absolute;
-  left: 18px;
-  top: 18px;
+  left: 16px;
+  top: 14px;
 }
 
 .btn:hover {
@@ -319,7 +350,7 @@ body {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
-  gap: 20px;
+  gap: 10px;
   z-index: 20;
   transform: translateY(100%);
   transition: transform 0.3s ease-in-out;
@@ -380,7 +411,7 @@ body {
   font-optical-sizing: auto;
   font-weight: 600; /* Semibold weight */
   font-style: normal;
-  font-size: 30px; /* Large size for input text */
+  font-size: 32px; /* Large size for input text */
   color: var(--dark-text); /* Matches header color */
   background-color: transparent; /* No fill */
   border: none; /* No border */
@@ -390,14 +421,20 @@ body {
   margin: 0 auto; /* Center horizontally */
 }
 
+#task-name::placeholder {
+  color: var(--dark-text); /* Change placeholder text color to black */
+}
+
+/* Update for .time-inputs and its child inputs */
 .time-inputs {
   display: flex; /* Use flexbox for alignment */
-  gap: 20px; /* Add space between the inputs */
+  gap: 10px; /* No extra space between the inputs */
   width: 100%; /* Ensure the container spans the full width */
 }
 
 .time-inputs input[type="number"] {
   flex: 1; /* Make each input take up an equal portion of the space */
+  max-width: 50%; /* Prevent exceeding half the container width */
   height: 80px; /* Match the specified height */
   border: 2px solid var(--outline); /* Use the outline color */
   border-radius: 20px; /* Rounded corners */
