@@ -3,7 +3,8 @@
   --bg: #ebebeb;
   --grey-text: #6a6a6a;
   --medium-grey: #9d9d9d;
-  --purple: #575fff;
+  --purple: #575FFF;
+  --purple-hover:rgb(108, 116, 255)f;
   --outline: #f1f1f1;
   --white: #ffffff;
   --button-hover: #f8f8f8;
@@ -53,7 +54,7 @@
   font-weight: 500;
   font-size: 22px;
   color: var(--grey-text);
-  margin-top: 20; /* Adjust spacing */
+  margin-top: 10; /* Adjust spacing */
   margin-bottom: 20px;
   text-align: center;
   max-width: 230px;
@@ -91,8 +92,9 @@ body {
 }
 
 #home-image {
+  display: block;
   position: absolute;
-  bottom: 140px;
+  bottom: 170px;
   left: 0;
   width: 100vw; /* Match the viewport width */
   height: auto; /* Maintain the aspect ratio */
@@ -146,7 +148,7 @@ body {
 .add-task-btn .icon {
   font-size: 30px; /* Icon size */
   font-weight: 100; /* Light weight for the icon */
-  color: var(--dark-text); /* Match text color */
+  color: var(--purple); /* Match text color */
   transform: translateY(-1px); /* Slight adjustment for alignment */
 }
 
@@ -179,7 +181,7 @@ body {
 .btn {
   font-family: "Rethink Sans", serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 600;
   font-style: normal;
   font-size: 22px;
   height: 60px;
@@ -188,7 +190,7 @@ body {
   padding: 0px 20px;
   cursor: pointer;
   background-color: var(--white);
-  color: var(--dark-text);
+  color: var(--purple);
   border: none;
   border-radius: 100px;
   /*     left: 50%;
@@ -209,7 +211,7 @@ body {
 .new-routine-btn .icon {
   font-size: 30px; /* Size for the icon */
   font-weight: 100;
-  color: var(--dark-text); /* Match the text color */
+  color: var(--purple); /* Match the text color */
   transform: translateY(-1px);
 }
 
@@ -256,6 +258,11 @@ body {
   color: var(--white); /* Set text color to white */
 }
 
+.btn.routine-btn:hover {
+  background-color: var(--purple-hover); /* Use your purple hover color */
+  color: var(--white); /* Keep text white */
+}
+
 #create-routine-btn.disabled {
   background-color: var(--medium-grey); /* Medium grey */
   color: var(--white); /* White text */
@@ -272,12 +279,12 @@ body {
 
 .task-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Space out left and right content */
   align-items: center;
-  height: 70px; /* Set height */
-  background-color: var(--white); /* Set background to white */
-  padding: 0 10px; /* Adjust padding */
-  border-bottom: 1px solid var(--outline); /* Light grey dividing line */
+  height: 70px; /* Set row height */
+  padding: 0 10px; /* Add padding to the row */
+  background-color: var(--white); /* Background color for the row */
+  border-bottom: 1px solid var(--outline); /* Add a bottom border */
 }
 
 
@@ -288,13 +295,13 @@ body {
 .task-row div:last-child {
   display: flex;
   align-items: center;
-  gap: 10px; /* Space between emoji and duration */
+  gap: 10px; /* Add spacing between emoji, color, duration, and 'x' */
 }
 
 .delete-task-icon {
   font-family: "Rethink Sans", serif; /* Use Rethink Sans */
-  font-size: 100px; /* Size for the "×" */
-  font-weight: 200; /* Normal weight */
+  font-size: 24px !important; /* Specify a valid unit for the font size */
+  font-weight: 100; /* Normal weight */
   color: var(--medium-grey); /* Grey color */
   cursor: pointer; /* Pointer cursor for interactivity */
 }
@@ -305,10 +312,9 @@ body {
 
 
 .task-row div:first-child {
-  font-family: "Rethink Sans", serif; /* Use Rethink Sans */
-  font-size: 18px; /* Font size for task name */
-  font-weight: 600; /* Semibold */
-  color: var(--dark-text); /* Text color */
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add spacing between icon and name */
 }
 
 .task-row div:last-child span {
@@ -318,24 +324,32 @@ body {
 }
 
 #routines-container {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center; /* Center the buttons horizontally */
+  gap: 15px; /* Add spacing between buttons */
+  margin-top: 20px; /* Add space from the "My Routines" header */
+  width: 100%;
 }
 
 .routine-btn {
-  background-color: #ffc107;
-  color: #000;
-  padding: 10px 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
+  background-color: var(--purple); /* Purple background */
+  color: var(--white); /* White text */
+  font-family: "Rethink Sans", serif;
+  font-weight: 600;
+  font-size: 20px; /* Slightly larger text for visibility */
+  text-align: center; /* Center text in the button */
+  padding: 10px 20px; /* Add padding for better spacing */
+  border: none; /* Remove borders */
+  border-radius: 100px; /* Rounded corners */
+  width: 100%; /* Button width relative to container */
+  max-width: 400px; /* Restrict to a reasonable max width */
   cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
 }
 
 .routine-btn:hover {
-  background-color: #e0a800;
+  background-color: rgb(108, 116, 255) !important;
 }
 
 .task-sheet {
@@ -344,12 +358,12 @@ body {
   left: 0;
   width: 100%;
   height: 540px; /* Set the height to 460px */
-  background-color: var(--white);
+  background-color: var(--bg);
   box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: 20px 20px 0 0;
   gap: 10px;
   z-index: 20;
   transform: translateY(100%);
@@ -421,6 +435,13 @@ body {
   margin: 0 auto; /* Center horizontally */
 }
 
+.task-name {
+  font-family: "Rethink Sans", serif; /* Consistent font */
+  font-size: 18px; /* Font size for task name */
+  font-weight: 600; /* Semibold font weight */
+  color: var(--dark-text); /* Text color */
+}
+
 #task-name::placeholder {
   color: var(--dark-text); /* Change placeholder text color to black */
 }
@@ -452,6 +473,7 @@ body {
 }
 
 .color-input-container {
+  pointer-events: none !important;; /* Prevent the container from blocking interaction */
   height: 80px; /* Match input field height */
   border: 2px solid var(--outline); /* Border using outline color */
   border-radius: 20px; /* Rounded corners */
@@ -463,17 +485,18 @@ body {
 }
 
 #color-selector {
-  appearance: none; /* Remove default browser styles */
+  pointer-events: auto !important; /* Allow interaction on the input itself */
+  appearance: none; /* Remove default styling */
   -webkit-appearance: none; /* For WebKit browsers */
+  pointer-events: auto; /* Ensure it is interactable */
   border: none;
-  width: 55px; /* Fixed width */
-  height: 55px; /* Fixed height */
-  border-radius: 50%; /* Make it a circle */
-  background-color: transparent; /* Make background transparent */
-  cursor: pointer; /* Pointer cursor for interactivity */
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
   padding: 0;
-  outline: none; /* Remove focus outline */
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Optional shadow for better visuals */
+  outline: none;
 }
 
 /* Ensure the color swatch is circular and fills the input */
@@ -511,3 +534,28 @@ body {
   appearance: none; /* Remove default dropdown styling */
 }
 
+#scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+  z-index: 19; /* Below the task sheet but above other content */
+}
+
+#scrim.hidden {
+  display: none; /* Hide scrim when not active */
+}
+
+.task-icon {
+  margin-right: 5px; /* Space between icon and task name */
+  color: var(--dark-text); /* Match text color */
+}
+
+.task-row div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 0; /* Align to the left margin of the body */
+}

@@ -1,6 +1,45 @@
 // Array to store routines
 const routines = [];
 
+// Initialize Sortable.js for the tasks container
+const tasksContainer = document.getElementById("tasks-container");
+
+Sortable.create(tasksContainer, {
+  animation: 150,
+  handle: ".task-row", // Specify the draggable handle
+  ghostClass: "sortable-ghost", // Class name for the placeholder element
+  filter: "#color-selector", // Exclude the color selector from being draggable
+  preventOnFilter: false, // Allow interaction with the filtered element
+  onEnd: function (evt) {
+    const { oldIndex, newIndex } = evt;
+    // Reorder the `currentRoutineTasks` array based on the new task order
+    const movedTask = currentRoutineTasks.splice(oldIndex, 1)[0];
+    currentRoutineTasks.splice(newIndex, 0, movedTask);
+  },
+});
+
+function updateHomeView() {
+  const homeImage = document.getElementById("home-image");
+  const headerText = document.querySelector(".rethink-sans-header");
+  const subheaderText = document.querySelector(".subheader");
+
+  if (routines.length === 0) {
+    homeImage.style.display = "block"; // Show the image
+    headerText.textContent = "Routini"; // Initial app name
+    headerText.style.fontSize = "50px"; // Slightly larger font size
+    subheaderText.style.display = "block"; // Show the subheader
+  } else {
+    homeImage.style.display = "none"; // Hide the image
+    headerText.textContent = "My Routines"; // Switch to "My Routines"
+    headerText.style.fontSize = "32px"; // Normal font size
+    subheaderText.style.display = "none"; // Hide the subheader
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateHomeView();
+});
+
 // Navigation function
 // Navigation function
 function navigateTo(view) {
@@ -25,7 +64,7 @@ function navigateTo(view) {
     // Reset Routine Name field to "Routine name"
     const routineNameInput = document.getElementById("routine-name");
     routineNameInput.value = ""; // Clear the field
-    routineNameInput.placeholder = "Routine name"; // Reset placeholder
+    routineNameInput.placeholder = "✎ Routine name"; // Reset placeholder
   } else if (view === "home") {
     homeView.classList.remove("hidden");
   } else if (view === "playing") {
@@ -48,16 +87,25 @@ document.getElementById("add-task-btn").addEventListener("click", () => {
   taskSheet.classList.remove("hidden");
   taskSheet.classList.add("show");
 
+  const scrim = document.getElementById("scrim");
+  scrim.classList.remove("hidden"); // Show the scrim
+
   // Reset Task Name field to "Task Name"
   const taskNameInput = document.getElementById("task-name");
   taskNameInput.value = ""; // Clear the field
-  taskNameInput.placeholder = "Task Name"; // Reset placeholder
+  taskNameInput.placeholder = "✎ Task Name"; // Reset placeholder
 });
 
-// Hide the task sheet and reset fields
+document.getElementById("scrim").addEventListener("click", () => {
+  hideTaskSheet(); // This hides both the task sheet and the scrim
+});
+
 function hideTaskSheet() {
   taskSheet.classList.remove("show");
   taskSheet.classList.add("hidden");
+
+  const scrim = document.getElementById("scrim");
+  scrim.classList.add("hidden"); // Ensure scrim is hidden
 }
 
 // Routine name input field interactions
@@ -71,7 +119,7 @@ routineNameInput.addEventListener("focus", () => {
 
 routineNameInput.addEventListener("blur", () => {
   if (routineNameInput.value === "") {
-    routineNameInput.placeholder = "Routine name";
+    routineNameInput.placeholder = "✎ Routine name";
   }
 });
 
@@ -124,20 +172,35 @@ document.getElementById("add-task-to-list").addEventListener("click", () => {
   taskRow.classList.add("task-row");
 
   taskRow.innerHTML = `
-    <div class="task-name">${newTask.name}</div>
+  <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
     <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 24px;">${newTask.emoji}</span>
-        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
-        <span class="task-duration">${newTask.minutes}m ${newTask.seconds}s</span>
-        <span class="delete-task-icon">×</span>
+      <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="2.9999" cy="2.10732" r="2.10732" fill="#9D9D9D"/>
+<circle cx="2.9999" cy="10" r="2.10732" fill="#9D9D9D"/>
+<circle cx="2.9999" cy="17.8927" r="2.10732" fill="#9D9D9D"/>
+<circle cx="10.8927" cy="2.10732" r="2.10732" fill="#9D9D9D"/>
+<circle cx="10.8927" cy="10" r="2.10732" fill="#9D9D9D"/>
+<circle cx="10.8927" cy="17.8927" r="2.10732" fill="#9D9D9D"/>
+</svg>
+
+      <div class="task-name">${newTask.name}</div>
     </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 24px;">${newTask.emoji}</span>
+      <div style="width: 20px; height: 20px; border-radius: 50%; background-color: ${newTask.color};"></div>
+      <span class="task-duration">${newTask.minutes}m ${newTask.seconds}s</span>
+      <span class="delete-task-icon">×</span>
+    </div>
+  </div>
 `;
 
-  taskRow.querySelector('.delete-task-icon').addEventListener('click', () => {
-    currentRoutineTasks = currentRoutineTasks.filter(task => task !== newTask);
+  taskRow.querySelector(".delete-task-icon").addEventListener("click", () => {
+    currentRoutineTasks = currentRoutineTasks.filter(
+      (task) => task !== newTask
+    );
     taskRow.remove();
     updateCreateRoutineButtonState();
-});
+  });
 
   tasksContainer.appendChild(taskRow);
 
@@ -203,6 +266,8 @@ document.getElementById("create-routine-btn").addEventListener("click", () => {
   document.getElementById("tasks-container").innerHTML = "";
   currentRoutineTasks = [];
   navigateTo("home");
+
+  updateHomeView(); // Update the home view
 });
 
 // Function to play a routine
@@ -285,6 +350,6 @@ taskNameInput.addEventListener("focus", () => {
 // Restore placeholder if left blank
 taskNameInput.addEventListener("blur", () => {
   if (taskNameInput.value === "") {
-    taskNameInput.placeholder = "Task Name"; // Restore placeholder
+    taskNameInput.placeholder = "✎ Task Name"; // Restore placeholder
   }
 });
