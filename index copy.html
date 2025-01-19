@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh Start</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  </head>
+  <body>
+    <div id="home-view" class="container">
+        <img id="home-image" src="hero.png" alt="Full screen image" />
+        <h1 class="rethink-sans-header">My Routines</h1>
+        <p class="subheader">Create a new routine to get started</p>
+        <button class="btn new-routine-btn" onclick="navigateTo('new-routine')">
+          <span class="icon">+</span>
+          <span class="btn-text">New Routine</span>
+        </button>
+        <div id="routines-container"></div>
+      </div>
+
+    <div id="new-routine-view" class="container hidden">
+      <button
+        type="button"
+        class="btn back-btn"
+        onclick="navigateTo('home')"
+      ></button>
+      <input
+        type="text"
+        id="routine-name"
+        placeholder="✎ Routine name"
+        autocomplete="off"
+      />
+      <button id="add-task-btn" class="btn add-task-btn" type="button">
+        <span class="icon">+</span>
+        <span class="btn-text">Add Task</span>
+    </button>
+      <div id="tasks-container"></div>
+      <button id="create-routine-btn" class="btn" type="button">
+        Create Routine
+      </button>
+
+      <div id="scrim" class="hidden"></div>
+      
+      <div id="task-sheet" class="task-sheet hidden">
+        <input type="text" id="task-name" placeholder="✎ Task Name" />
+        <select id="emoji-selector">
+            <option value="😊">😊</option>
+            <option value="💪">💪</option>
+            <option value="🧘">🧘</option>
+            <option value="🎶">🎶</option>
+            <option value="🍎">🍎</option>
+            <option value="🚴">🚴</option>
+            <option value="☕">☕</option>
+        </select>
+        <div class="color-input-container">
+            <input type="color" id="color-selector" />
+        </div>
+        
+        <div class="time-inputs">
+            <input type="number" id="minutes-selector" placeholder="Minutes" min="0" />
+            <input type="number" id="seconds-selector" placeholder="Seconds" min="0" max="59" />
+        </div>
+        <button id="add-task-to-list" class="btn">Add</button>
+    </div>
+    
+      </div>
+    </div>
+
+    <div id="playing-view" class="container hidden">
+      <button
+        type="button"
+        class="btn back-btn"
+        onclick="navigateTo('home')"
+      ></button>
+      <h1 id="playing-message"></h1>
+    </div>
+  </body>
+</html>

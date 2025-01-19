@@ -1,0 +1,561 @@
+:root {
+  --dark-text: #000000;
+  --bg: #ebebeb;
+  --grey-text: #6a6a6a;
+  --medium-grey: #9d9d9d;
+  --purple: #575FFF;
+  --purple-hover:rgb(108, 116, 255)f;
+  --outline: #f1f1f1;
+  --white: #ffffff;
+  --button-hover: #f8f8f8;
+  --back-button: #D9D9D9;
+  /*  */
+}
+
+.rethink-sans-header {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 32px;
+  color: var(--dark-text);
+  position: relative; /* Keep the positioning */
+  top: 0; /* Remove large offset */
+  margin-bottom: 10px; /* Add appropriate spacing */
+}
+
+.rethink-sans-normal {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 22px; /* Large size for a header */
+}
+
+.rethink-sans-small {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 32px; /* Large size for a header */
+}
+
+.rethink-sans-task-list {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 18px; /* Large size for a header */
+  color: var(--dark-text);
+}
+
+.subheader {
+  font-family: "Rethink Sans", serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--grey-text);
+  margin-top: 10; /* Adjust spacing */
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 230px;
+}
+
+.hidden {
+  display: none !important; /* Ensure hidden views are not visible */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--bg);
+  padding-left: 32px;
+  padding-right: 32px;
+  box-sizing: border-box; /* Ensure padding is included in the width calculation */
+}
+
+
+.container {
+  text-align: center;
+}
+
+#home-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+  align-items: center; /* Keep children horizontally centered */
+  height: 100vh; /* Full viewport height */
+  padding-top: 150px; /* Add padding for spacing from the top */
+}
+
+#home-image {
+  display: block;
+  position: absolute;
+  bottom: 170px;
+  left: 0;
+  width: 100vw; /* Match the viewport width */
+  height: auto; /* Maintain the aspect ratio */
+  object-fit: contain; /* Prevent cropping if needed */
+  z-index: -1; /* Keep the image behind other content */
+}
+
+#new-routine-view {
+  position: absolute;        /* Position relative to the screen */
+  top: 0;
+  left: 0;
+  width: 100%;              /* Full width of the viewport */
+  height: 100%;             /* Full height of the viewport */
+  display: flex;            /* Flexbox layout for alignment */
+  flex-direction: column;   /* Stack children vertically */
+  align-items: center;      /* Center children horizontally */
+  gap: 20px;                /* Add spacing between elements */
+  background-color: var(--bg); /* Match the desired background color */
+  z-index: 10;              /* Ensure it appears above other elements */
+}
+
+#routine-name {
+  margin-top: 200px; /* Optionally add space above just the input */
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /* Matches semibold weight of the header */
+  font-style: normal;
+  font-size: 32px; /* Same size as the header */
+  color: var(--dark-text); /* Matches the header color */
+  background-color: transparent; /* Removes the fill */
+  border: none; /* Removes the border */
+  outline: none; /* Removes the focus outline */
+  text-align: center; /* Optional: Center-align the text */
+  width: 80%; /* Optional: Adjust width */
+}
+
+#routine-name::placeholder {
+  color: var(--dark-text); /* Change placeholder text color to black */
+}
+
+#add-task-btn {
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Vertically align icon and text */
+  justify-content: center; /* Center content horizontally */
+  gap: 8px; /* Add space between the icon and text */
+  text-align: center; /* Ensure text stays aligned */
+  margin: 20px 0; /* Vertical spacing only */
+  width: auto; /* Flexible width */
+}
+
+.add-task-btn .icon {
+  font-size: 30px; /* Icon size */
+  font-weight: 100; /* Light weight for the icon */
+  color: var(--purple); /* Match text color */
+  transform: translateY(-1px); /* Slight adjustment for alignment */
+}
+
+#add-task-to-list {
+  position: fixed; /* Fix position to viewport */
+  bottom: 20px; /* Distance from the bottom of the screen */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Center alignment correction */
+  width: calc(100% - 64px); /* Adjust width to fit inside padding */
+  max-width: 500px; /* Maintain max width */
+  height: 60px; /* Button height */
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: 22px;
+  background-color: var(--white);
+  color: var(--dark-text);
+  border: none;
+  border-radius: 100px;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+#add-task-to-list:hover {
+  background-color: var(--button-hover);
+}
+
+
+
+.btn {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 22px;
+  height: 60px;
+  width: calc(100% - 64px);
+  max-width: 500px; /* Restrict to a maximum width */
+  padding: 0px 20px;
+  cursor: pointer;
+  background-color: var(--white);
+  color: var(--purple);
+  border: none;
+  border-radius: 100px;
+  /*     left: 50%;
+    transform: translateX(-50%); */
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.new-routine-btn {
+  display: flex; /* Flexbox for alignment */
+  align-items: center; /* Vertically align icon and text */
+  justify-content: center; /* Center content horizontally */
+  gap: 8px; /* Add space between the icon and text */
+  text-align: center; /* Ensure text stays aligned */
+  position: fixed;
+  bottom: 32px;
+}
+
+.new-routine-btn .icon {
+  font-size: 30px; /* Size for the icon */
+  font-weight: 100;
+  color: var(--purple); /* Match the text color */
+  transform: translateY(-1px);
+}
+
+.back-btn {
+  position: absolute; /* Position relative to the viewport or nearest positioned parent */
+  top: 40px; /* 100px from the top of the window */
+  left: 18px; /* 32px from the left edge, respecting the margin */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--back-button);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow: none;
+}
+
+.back-btn::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--grey-text);
+  border-left: 2px solid var(--grey-text);
+  transform: rotate(-45deg);
+  position: absolute;
+  left: 16px;
+  top: 14px;
+}
+
+.btn:hover {
+  background-color: var(--button-hover);
+}
+
+.hidden {
+  display: none;
+}
+
+#create-routine-btn {
+  position: fixed;
+  bottom: 32px;
+  background-color: var(--purple); /* Use the purple color */
+  color: var(--white); /* Set text color to white */
+}
+
+.btn.routine-btn:hover {
+  background-color: var(--purple-hover); /* Use your purple hover color */
+  color: var(--white); /* Keep text white */
+}
+
+#create-routine-btn.disabled {
+  background-color: var(--medium-grey); /* Medium grey */
+  color: var(--white); /* White text */
+  cursor: not-allowed; /* Show a not-allowed cursor */
+}
+
+#tasks-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+}
+
+.task-row {
+  display: flex;
+  justify-content: space-between; /* Space out left and right content */
+  align-items: center;
+  height: 70px; /* Set row height */
+  padding: 0 10px; /* Add padding to the row */
+  background-color: var(--white); /* Background color for the row */
+  border-bottom: 1px solid var(--outline); /* Add a bottom border */
+}
+
+
+.task-row:last-child {
+  border-bottom: none; /* Remove border for the last row */
+}
+
+.task-row div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add spacing between emoji, color, duration, and 'x' */
+}
+
+.delete-task-icon {
+  font-family: "Rethink Sans", serif; /* Use Rethink Sans */
+  font-size: 24px !important; /* Specify a valid unit for the font size */
+  font-weight: 100; /* Normal weight */
+  color: var(--medium-grey); /* Grey color */
+  cursor: pointer; /* Pointer cursor for interactivity */
+}
+
+.delete-task-icon:hover {
+  color: var(--dark-text); /* Darker color on hover */
+}
+
+
+.task-row div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Add spacing between icon and name */
+}
+
+.task-row div:last-child span {
+  font-family: "Rethink Sans", serif; /* Use Rethink Sans */
+  font-size: 18px; /* Font size for duration */
+  font-weight: 600; /* Semibold */
+}
+
+#routines-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the buttons horizontally */
+  gap: 15px; /* Add spacing between buttons */
+  margin-top: 20px; /* Add space from the "My Routines" header */
+  width: 100%;
+}
+
+.routine-btn {
+  background-color: var(--purple); /* Purple background */
+  color: var(--white); /* White text */
+  font-family: "Rethink Sans", serif;
+  font-weight: 600;
+  font-size: 20px; /* Slightly larger text for visibility */
+  text-align: center; /* Center text in the button */
+  padding: 10px 20px; /* Add padding for better spacing */
+  border: none; /* Remove borders */
+  border-radius: 100px; /* Rounded corners */
+  width: 100%; /* Button width relative to container */
+  max-width: 400px; /* Restrict to a reasonable max width */
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+}
+
+.routine-btn:hover {
+  background-color: rgb(108, 116, 255) !important;
+}
+
+.task-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 540px; /* Set the height to 460px */
+  background-color: var(--bg);
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px 20px 0 0;
+  gap: 10px;
+  z-index: 20;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  box-sizing: border-box; /* Ensure padding doesn't affect width or height */
+}
+
+.task-sheet.show {
+  transform: translateY(0); /* Slide into view */
+}
+
+
+.task-sheet.hidden {
+  transform: translateY(0); /* Slide down out of view */
+}
+
+.task-sheet input[type="text"],
+.task-sheet input[type="number"],
+.task-sheet select,
+.task-sheet input[type="color"] {
+    height: 80px; /* Set height */
+    border: 2px solid var(--outline); /* Border with outline color */
+    border-radius: 20px; /* Rounded corners */
+    font-family: "Rethink Sans", serif; /* Consistent font */
+    font-size: 18px; /* Slightly larger text for readability */
+    padding: 0 15px; /* Add padding for better appearance */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+    color: var(--dark-text); /* Text color */
+    background-color: var(--white); /* Background color */
+}
+
+.task-sheet input[type="text"]:focus,
+.task-sheet input[type="number"]:focus,
+.task-sheet select:focus,
+.task-sheet input[type="color"]:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: var(--purple); /* Highlight with purple when focused */
+}
+
+
+#playing-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--bg); /* Use the app's default background */
+  color: white;
+  z-index: 10; /* Ensure it stays above other views when active */
+}
+
+#task-name {
+  font-family: "Rethink Sans", serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /* Semibold weight */
+  font-style: normal;
+  font-size: 32px; /* Large size for input text */
+  color: var(--dark-text); /* Matches header color */
+  background-color: transparent; /* No fill */
+  border: none; /* No border */
+  outline: none; /* Remove focus outline */
+  text-align: center; /* Center-align text */
+  width: 80%; /* Optional: Adjust width */
+  margin: 0 auto; /* Center horizontally */
+}
+
+.task-name {
+  font-family: "Rethink Sans", serif; /* Consistent font */
+  font-size: 18px; /* Font size for task name */
+  font-weight: 600; /* Semibold font weight */
+  color: var(--dark-text); /* Text color */
+}
+
+#task-name::placeholder {
+  color: var(--dark-text); /* Change placeholder text color to black */
+}
+
+/* Update for .time-inputs and its child inputs */
+.time-inputs {
+  display: flex; /* Use flexbox for alignment */
+  gap: 10px; /* No extra space between the inputs */
+  width: 100%; /* Ensure the container spans the full width */
+}
+
+.time-inputs input[type="number"] {
+  flex: 1; /* Make each input take up an equal portion of the space */
+  max-width: 50%; /* Prevent exceeding half the container width */
+  height: 80px; /* Match the specified height */
+  border: 2px solid var(--outline); /* Use the outline color */
+  border-radius: 20px; /* Rounded corners */
+  font-family: "Rethink Sans", serif; /* Consistent font */
+  font-size: 18px; /* Slightly larger text for readability */
+  padding: 0 15px; /* Add padding inside the inputs */
+  box-sizing: border-box; /* Include padding and border in the dimensions */
+  color: var(--dark-text); /* Text color */
+  background-color: var(--white); /* Background color */
+}
+
+.time-inputs input[type="number"]:focus {
+  outline: none; /* Remove the default focus outline */
+  border-color: var(--purple); /* Highlight border on focus */
+}
+
+.color-input-container {
+  pointer-events: none !important;; /* Prevent the container from blocking interaction */
+  height: 80px; /* Match input field height */
+  border: 2px solid var(--outline); /* Border using outline color */
+  border-radius: 20px; /* Rounded corners */
+  display: flex; /* Flexbox for centering */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  box-sizing: border-box; /* Include padding and border in dimensions */
+  background-color: var(--white); /* Match input field background */
+}
+
+#color-selector {
+  pointer-events: auto !important; /* Allow interaction on the input itself */
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none; /* For WebKit browsers */
+  pointer-events: auto; /* Ensure it is interactable */
+  border: none;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+/* Ensure the color swatch is circular and fills the input */
+#color-selector::-webkit-color-swatch-wrapper {
+  padding: 0; /* Remove default padding */
+  border-radius: 50%; /* Ensure wrapper stays circular */
+  display: flex; /* Flex to center align the swatch */
+  justify-content: center;
+  align-items: center;
+}
+
+#color-selector::-webkit-color-swatch {
+  border-radius: 50%; /* Make the swatch circular */
+  width: 100%; /* Ensure it covers the full input area */
+  height: 100%; /* Ensure it covers the full input area */
+  border: none; /* Remove the default border */
+  margin: 0; /* Remove any margin */
+  padding: 0; /* Remove padding */
+  box-sizing: border-box; /* Prevent content overflow */
+}
+
+#emoji-selector {
+  display: flex; /* Enables alignment */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  text-align: center; /* Ensure emoji is centered in the dropdown */
+  font-size: 60px; /* Make emoji bigger */
+  height: 80px; /* Match other input heights */
+  border: 2px solid var(--outline); /* Border color */
+  border-radius: 20px; /* Rounded edges */
+  font-family: "Rethink Sans", serif; /* Ensure consistent font style */
+  background-color: var(--white); /* Match input background */
+  color: var(--dark-text); /* Text color */
+  padding: 0; /* Remove padding to center properly */
+  appearance: none; /* Remove default dropdown styling */
+}
+
+#scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent black */
+  z-index: 19; /* Below the task sheet but above other content */
+}
+
+#scrim.hidden {
+  display: none; /* Hide scrim when not active */
+}
+
+.task-icon {
+  margin-right: 5px; /* Space between icon and task name */
+  color: var(--dark-text); /* Match text color */
+}
+
+.task-row div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 0; /* Align to the left margin of the body */
+}
