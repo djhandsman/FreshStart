@@ -1,2 +1,2 @@
 # Routini
- The (mini) app for sticking to routines
+ My submission for the GitHub Copilot 1-Day Build Challenge
