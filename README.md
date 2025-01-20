@@ -1,2 +1,2 @@
-# FreshStart
- An app for sticking to routines
+# Routini
+ The (mini) app for sticking to routines
